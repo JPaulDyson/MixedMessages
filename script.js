@@ -23,7 +23,7 @@ const subjAdj = [
     "alarmingly racist",
     "diabetic",
     "partially deaf",
-    "hysterical",
+    "traumatized",
     "surprisingly tall",
     "singing",
     "nervous",
@@ -68,7 +68,7 @@ const locAdj = [
     "upmarket",
     "trendy",
     "nineties-themed",
-    "state-sponsored",
+    "state-funded",
     "bombed out",
     "medieval",
     "tastelessly decorated",
@@ -86,7 +86,7 @@ const locNoun = [
     "house",
     "coffee shop",
     "denists",
-    "flower ship",
+    "flower shop",
     "hospital",
     "school",
     "asylum",
@@ -143,11 +143,48 @@ const sitNouns = [
     "tin of sardines",
     "masked pigeon assassin",
     "floral tribute",
-    "gambling debt",
-    "terrible secret",
+    "zimmer frame",
+    "hitherto unknown relative",
     "tin of peaches",
     "plate of last night's leftovers",
     "lover of meat pies",
     "cat from next door",
     "replica of Skeletor from He-Man"
 ];
+
+//function to pick a random item from an array
+function pick(array){
+    const randNum = Math.floor(Math.random()*array.length);
+    return array[randNum];
+}
+
+//function to return the correct inefinite article based on the first letter of the supplied word
+function indef(word, caps){
+    const firstLetter = word[0];
+    if(firstLetter === "a" || firstLetter === "e" || firstLetter === "i" || firstLetter === "o" || firstLetter === "u"){
+        if(caps === "upper"){
+            return "An";
+        }else{
+            return "an";
+        }
+    }else{
+        if(caps === "upper"){
+            return "A";
+        }else{
+            return "a";
+        }
+    }
+}
+
+const subjAdjWord = pick(subjAdj);
+const subject = indef(subjAdjWord, "upper") + " " + subjAdjWord + " " + pick(subjNoun);
+
+const sitNounWord = pick(sitNouns);
+const situation = pick(sitVerb) + " " + indef(sitNounWord, "lower") + " " + sitNounWord;
+
+const locAdjWord = pick(locAdj);
+const location = indef(locAdjWord, "lower") + " " + locAdjWord + " " + pick(locNoun);
+
+const msg = `${subject} ${situation} in ${location}.`;
+
+console.log(msg);
